@@ -133,7 +133,6 @@ Tide_data$Date <-as.Date(Tide_data$Date)+1
 
 MG<-merge(tdata,Tide_data, by="Date", all.x=T)
 
-MG<-merge(tdata,Tide_data, by="Date", all.x=T)
 MG$Year = lubridate::year(MG$Date)
 MG$Month = lubridate::month(MG$Date)
 MG<-MG[!is.na(MG$Amplitude),]
@@ -177,4 +176,15 @@ plot(MG2017$'Date', MG2017$'speed (m/s)',main="Dunk Island Current speed 2017 ")
 plot(MG2017$'Date', MG2017$'heading (degrees CW from North)',main="Dunk Island Current direction 2017 ")
 dev.off()
 
+#######################################################################################################################################
+# Turbidity statistics for Zoe
 
+quantile(tdata$NTUe, probs = c(0.1,0.5,0.9), na.rm=TRUE)
+mean(tdata$NTUe)
+sd(tdata$NTUe, na.rm=TRUE)/mean(tdata$NTUe, na.rm=TRUE)*100	 
+NTUe10_90 = subset(tdata$NTUe, tdata$NTUe>=quants[[1]] &  tdata$NTUe<=quants[[3]])
+hist(NTUe10_90)
+cv=sd(NTUe10_90, na.rm=TRUE)/mean(NTUe10_90, na.rm=TRUE)*100	 
+mean(NTUe10_90)
+cv
+length(tdata$NTUe[!is.na(tdata$NTUe)])

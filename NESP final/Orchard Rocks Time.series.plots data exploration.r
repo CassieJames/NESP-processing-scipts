@@ -213,5 +213,15 @@ datef='2018-06-30'
 int <- interval(datei, datef)
 mysub <-MG[MG$DateTime %within% int,]
 
+#######################################################################################################################################
+# Turbidity statistics for Zoe
 
-  
+quantile(tdata$NTUe, probs = c(0.1,0.5,0.9), na.rm=TRUE)
+mean(tdata$NTUe,na.rm=TRUE)
+sd(tdata$NTUe, na.rm=TRUE)/mean(tdata$NTUe, na.rm=TRUE)*100	 
+NTUe10_90 = subset(tdata$NTUe, tdata$NTUe>=quants[[1]] &  tdata$NTUe<=quants[[3]])
+hist(NTUe10_90)
+cv=sd(NTUe10_90, na.rm=TRUE)/mean(NTUe10_90, na.rm=TRUE)*100	 
+mean(NTUe10_90)
+cv
+length(tdata$NTUe[!is.na(tdata$NTUe)])

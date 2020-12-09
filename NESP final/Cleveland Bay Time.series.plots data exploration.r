@@ -110,6 +110,15 @@ p4.flow <- ggplot(flowdata, aes(Date, Burdekin)) + geom_line(colour = "#377EB8")
 
 #ypos = min(tdata$u.current,na.rm = TRUE) + 0.95*diff(range(tdata$u.current,na.rm = TRUE))
 
+ypos = min(tdata$'speed (m/s)',na.rm = TRUE) + 0.95*diff(range(tdata$'speed (m/s)',na.rm = TRUE))
+
+ ggplot(tdata,aes(timestamp, tdata[,9])) + geom_line(stat="identity", colour="#FF7F00", size=0.3) + theme_classic(base_size = 12)+scale_y_continuous(position = "right")+
+		theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),axis.title.y = element_text(colour="grey20",size=12))+ylab(bquote('NTUe'))+
+		scale_x_datetime(expand=c(0,0),limits = as.POSIXct(c('2016-06-01','2020-03-30')))+annotate(geom="text", x=as.POSIXct("2016-06-25 12:00", format = "%Y-%m-%d %H:%M"), y=ypos, label= "d.", size=6) 
+
+
 ypos=0.475
 cols=brewer.pal(n = 8, name = "Set2")
 		
@@ -172,3 +181,16 @@ png(paste(image.dir,"Cleveland Bay Tide amplitude vs current data by month 2016.
 P5<-ggplot(MG2016,aes(u_comp_current,v_comp_current), na.rm=FALSE) + geom_point(colour="grey")+facet_wrap(MG2016$Month, nrow=2)+xlim(-0.4,0.4)+ylim(-0.4,0.4)
 P5
 dev.off()
+
+#######################################################################################################################################
+# Turbidity statistics for Zoe
+
+quantile(tdata$NTUe, probs = c(0.1,0.5,0.9), na.rm=TRUE)
+mean(tdata$NTUe)
+sd(tdata$NTUe, na.rm=TRUE)/mean(tdata$NTUe, na.rm=TRUE)*100	 
+NTUe10_90 = subset(tdata$NTUe, tdata$NTUe>=quants[[1]] &  tdata$NTUe<=quants[[3]])
+hist(NTUe10_90)
+cv=sd(NTUe10_90, na.rm=TRUE)/mean(NTUe10_90, na.rm=TRUE)*100	 
+mean(NTUe10_90)
+cv
+length(tdata$NTUe[!is.na(tdata$NTUe)])

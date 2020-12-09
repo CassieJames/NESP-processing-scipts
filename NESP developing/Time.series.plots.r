@@ -2,7 +2,6 @@
 #### Steve Lewis Time Series plots
 
 library(ggplot2)
-library(binhf)
 library(RColorBrewer)
 library(cowplot)
 library(data.table)

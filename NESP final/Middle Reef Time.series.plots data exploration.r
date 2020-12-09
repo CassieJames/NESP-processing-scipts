@@ -202,4 +202,17 @@ legend(-0.025, -0.25, legend=c("Tide amplitude >3.5m", "Tide amplitude <1m"),
        col=c("blue", "red"), lty=1, cex=0.8)
 	   
 dev.off()
-	   
+
+#######################################################################################################################################
+# Turbidity statistics for Zoe
+
+
+quantile(tdata$NTUe, probs = c(0.05,0.5,0.95), na.rm=TRUE)
+mean(tdata$NTUe)
+sd(tdata$NTUe, na.rm=TRUE)/mean(tdata$NTUe, na.rm=TRUE)*100	 
+NTUe10_90 = subset(tdata$NTUe, tdata$NTUe>=quants[[1]] &  tdata$NTUe<=quants[[3]])
+hist(NTUe10_90)
+cv=sd(NTUe10_90, na.rm=TRUE)/mean(NTUe10_90, na.rm=TRUE)*100	 
+mean(NTUe10_90)
+cv
+length(tdata$NTUe[!is.na(tdata$NTUe)])

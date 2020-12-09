@@ -149,3 +149,16 @@ points(MGNeap$u_comp_current,MGNeap$v_comp_current, col='red')
 legend(-0.2, 0.75, legend=c("Tide amplitude >3.5m", "Tide amplitude <1m"),
        col=c("blue", "red"), lty=1, cex=0.8)
 dev.off()
+
+#######################################################################################################################################
+# Turbidity statistics for Zoe
+quantile(tdata$NTUe, probs = c(0.1,0.5,0.9), na.rm=TRUE)
+mean(tdata$NTUe,na.rm=TRUE)
+sd(tdata$NTUe, na.rm=TRUE)/mean(tdata$NTUe, na.rm=TRUE)*100	 
+NTUe10_90 = subset(tdata$NTUe, tdata$NTUe>=quants[[1]] &  tdata$NTUe<=quants[[3]])
+hist(NTUe10_90)
+cv=sd(NTUe10_90, na.rm=TRUE)/mean(NTUe10_90, na.rm=TRUE)*100	 
+mean(NTUe10_90)
+cv
+length(tdata$NTUe[!is.na(tdata$NTUe)])
+  

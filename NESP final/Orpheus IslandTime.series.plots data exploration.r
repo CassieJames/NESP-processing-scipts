@@ -188,3 +188,17 @@ dev.off()
 png(paste(image.dir,"Orpheus Island Date vs heading Full record.png",sep=''),width=30, height=30, units='cm', res=500, pointsize=10, bg='white')	
 plot(MG$'Date', MG$'heading (degrees CW from North)')
 dev.off()
+
+#######################################################################################################################################
+# Turbidity statistics for Zoe
+
+
+quantile(tdata$NTUe, probs = c(0.1,0.5,0.9), na.rm=TRUE)
+mean(tdata$NTUe,na.rm=TRUE)
+sd(tdata$NTUe, na.rm=TRUE)/mean(tdata$NTUe, na.rm=TRUE)*100	 
+NTUe10_90 = subset(tdata$NTUe, tdata$NTUe>=quants[[1]] &  tdata$NTUe<=quants[[3]])
+hist(NTUe10_90)
+cv=sd(NTUe10_90, na.rm=TRUE)/mean(NTUe10_90, na.rm=TRUE)*100	 
+mean(NTUe10_90)
+cv
+length(tdata$NTUe[!is.na(tdata$NTUe)])
